@@ -28,7 +28,6 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -86,7 +85,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sm.storageregistration.Implements.StorageAwsImpl;
-import com.sm.common.DbConfiguration;
 
 /**
  * Task Runner from pre operation to transfer to post operation, except in case
@@ -3128,18 +3126,13 @@ public class DbTaskRunner extends AbstractDbData {
 
 						// TODO Integration to s3
 
-						try {
-							if (file.exists()) {
-								String fileAmz = Configuration.configuration.getBaseDirectory() + "/in/"
-										+ file.getBasename();
-								fileAmz = fileAmz.replace("/", "\\\\");
-								int mode = rule.getMode();
-								if (mode == 1) {
-									new StorageAwsImpl().sendFile(fileAmz, "in", specialId);
-								}
-							}
-						} catch (CommandAbstractException e1) {
-							e1.printStackTrace();
+						String fileAmz = Configuration.configuration.getBaseDirectory() + "/in/"
+								+ file.getBasename();
+						logger.debug("File is uploading into s3 :" +fileAmz );
+						if (new File(fileAmz).exists() && mode == 1) {
+							//fileAmz = fileAmz.replace("/", "\\\\"); 
+							logger.debug("File upload is started :" +fileAmz );
+							new StorageAwsImpl().sendFile(fileAmz, "in", specialId);
 						}
 						try {
 							this.setFilename(file.getFile());
@@ -3238,8 +3231,8 @@ public class DbTaskRunner extends AbstractDbData {
 				boolean result1 = gatewayfile.contains("out");
 				if (result1 == true && mode == 2) {
 					String filename = new File(gatewayfile).getName();
-							gatewayfile.substring(gatewayfile.indexOf("/") + 5);
-					String outDirFile = session.getDir().getFullPath()+ "/"+filename;
+					gatewayfile.substring(gatewayfile.indexOf("/") + 5);
+					String outDirFile = session.getDir().getFullPath() + "/" + filename;
 					new File(outDirFile).delete();
 				}
 			} catch (CommandAbstractException e) {

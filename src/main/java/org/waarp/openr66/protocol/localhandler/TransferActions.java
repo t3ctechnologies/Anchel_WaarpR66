@@ -280,8 +280,8 @@ public class TransferActions extends ServerActions {
 						String outDirFile = outdirpath.concat(filename);
 						Properties properties = new DbConfiguration().getDbProperties();
 						String fileID = new AccessClass().TakeSpecialId(filename);
-						String bucket_name = properties.getProperty("com.waarp.bucketname");
-						String bucket_folder = properties.getProperty("com.waarp.bucketfolder");
+						String bucket_name = properties.getProperty("com.sgs.bucketname");
+						String bucket_folder = properties.getProperty("com.sgs.bucketfolder");
 						new StorageAwsImpl().GetById(bucket_name, bucket_folder, fileID, outDirFile);
 					}
                     

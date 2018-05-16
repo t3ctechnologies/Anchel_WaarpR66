@@ -125,7 +125,7 @@ public class ServerInitDatabase {
 				System.exit(1);
 				return;
 			}
-			if (database) {
+			if (args[1].contains("-initdb")) {
 				// Init database
 				try {
 					initdb();
