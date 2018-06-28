@@ -160,10 +160,10 @@
       <version>2.7.14</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>StorageManagement</groupId>
-      <artifactId>StorageManagement</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+     <dependency>
+      <groupId>Anchel</groupId>
+      <artifactId>Anchel-Storage</artifactId>
+      <version>1.1.1</version>
     </dependency>
   </dependencies>
   <properties>

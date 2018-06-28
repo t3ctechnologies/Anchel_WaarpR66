@@ -84,7 +84,7 @@ import org.xml.sax.SAXException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.sm.storageregistration.Implements.StorageAwsImpl;
+import com.t3c.anchel.storageregistration.Implements.StorageAwsImpl;
 
 /**
  * Task Runner from pre operation to transfer to post operation, except in case
@@ -3126,13 +3126,11 @@ public class DbTaskRunner extends AbstractDbData {
 
 						// TODO Integration to s3
 
-						String fileAmz = Configuration.configuration.getBaseDirectory() + "/in/"
+						String amazonFile = Configuration.configuration.getBaseDirectory() + "/in/"
 								+ file.getBasename();
-						logger.debug("File is uploading into s3 :" +fileAmz );
-						if (new File(fileAmz).exists() && mode == 1) {
-							//fileAmz = fileAmz.replace("/", "\\\\"); 
-							logger.debug("File upload is started :" +fileAmz );
-							new StorageAwsImpl().sendFile(fileAmz, "in", specialId);
+						if (new File(amazonFile).exists() && mode == 1) {
+							logger.debug("File is uploading into s3 :" +amazonFile );
+							new StorageAwsImpl().sendFile(amazonFile);
 						}
 						try {
 							this.setFilename(file.getFile());
